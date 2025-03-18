@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Researcher Embed</title>
+</head>
+<body style="margin: 0; padding: 0;">
+    <!-- GPT Researcher Embed -->
+    <script>localStorage.setItem("GPTR_API_URL", "http://localhost:8001");</script>
+    <script src="https://gptr.app/embed.js"></script>
+</body>
+</html>
