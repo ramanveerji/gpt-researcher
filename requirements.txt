@@ -31,6 +31,7 @@ json5
 loguru
 langgraph==0.2.76
 langchain_google_genai
+langchain_mistralai
 # uncomment for testing
 # pytest
 # pytest-asyncio
