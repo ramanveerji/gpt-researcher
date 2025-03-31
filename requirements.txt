@@ -33,3 +33,7 @@ langgraph
 # uncomment for testing
 # pytest
 # pytest-asyncio
+
+#my additions
+langchain_google_genai
+langchain_mistralai

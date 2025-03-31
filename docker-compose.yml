@@ -4,8 +4,13 @@ services:
     image: gptresearcher/gpt-researcher
     build: ./
     environment: 
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+#      OPENAI_API_KEY: ${OPENAI_API_KEY}
       TAVILY_API_KEY: ${TAVILY_API_KEY}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY}
+      FAST_LLM: ${FAST_LLM}
+      SMART_LLM: ${SMART_LLM}
+      STRATEGIC_LLM: ${STRATEGIC_LLM}
+      EMBEDDING: ${EMBEDDING}
       LANGCHAIN_API_KEY: ${LANGCHAIN_API_KEY}
       LOGGING_LEVEL: INFO
     volumes:
@@ -15,7 +20,7 @@ services:
     user: root
     restart: always
     ports:
-      - 8000:8000
+      - 8001:8001
       
   gptr-nextjs:
     pull_policy: build
@@ -24,7 +29,7 @@ services:
     environment:
       CHOKIDAR_USEPOLLING: "true"
       LOGGING_LEVEL: INFO
-      NEXT_PUBLIC_GA_MEASUREMENT_ID: ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
+#      NEXT_PUBLIC_GA_MEASUREMENT_ID: ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
       NEXT_PUBLIC_GPTR_API_URL: ${NEXT_PUBLIC_GPTR_API_URL}
     build:
       dockerfile: Dockerfile.dev
@@ -36,35 +41,35 @@ services:
       - ./outputs:/app/outputs
     restart: always
     ports:
-      - 3000:3000
+      - 3001:3001
 
-  gpt-researcher-tests:
-    image: gptresearcher/gpt-researcher-tests
-    build: ./
-    environment: 
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
-      TAVILY_API_KEY: ${TAVILY_API_KEY}
-      LANGCHAIN_API_KEY: ${LANGCHAIN_API_KEY}
-      LOGGING_LEVEL: INFO
-    profiles: ["test"]
-    command: >
-      /bin/sh -c "
-      pip install pytest pytest-asyncio faiss-cpu &&
-      python -m pytest tests/report-types.py &&
-      python -m pytest tests/vector-store.py
-      "
+  # gpt-researcher-tests:
+  #   image: gptresearcher/gpt-researcher-tests
+  #   build: ./
+  #   environment:
+  #     OPENAI_API_KEY: ${OPENAI_API_KEY}
+  #     TAVILY_API_KEY: ${TAVILY_API_KEY}
+  #     LANGCHAIN_API_KEY: ${LANGCHAIN_API_KEY}
+  #     LOGGING_LEVEL: INFO
+  #   profiles: ["test"]
+  #   command: >
+  #     /bin/sh -c "
+  #     pip install pytest pytest-asyncio faiss-cpu &&
+  #     python -m pytest tests/report-types.py &&
+  #     python -m pytest tests/vector-store.py
+  #     "
   
-  discord-bot:
-    build:
-      context: ./docs/discord-bot
-      dockerfile: Dockerfile.dev
-    environment:
-      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
-      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
-    volumes:
-      - ./docs/discord-bot:/app
-      - /app/node_modules
-    ports:
-      - 3001:3000
-    profiles: ["discord"]
-    restart: always
+  # discord-bot:
+  #   build:
+  #     context: ./docs/discord-bot
+  #     dockerfile: Dockerfile.dev
+  #   environment:
+  #     - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+  #     - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+  #   volumes:
+  #     - ./docs/discord-bot:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - 3001:3000
+  #   profiles: ["discord"]
+  #   restart: always
