@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html className="gptr-root" lang="en">
       <head>
-        <PlausibleProvider domain="localhost:3001" />
+        <PlausibleProvider domain="localhost:3000" />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
       </head>
       <body
