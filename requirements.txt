@@ -37,3 +37,4 @@ langgraph
 #my additions
 langchain_google_genai
 langchain_mistralai
+langchain-groq
